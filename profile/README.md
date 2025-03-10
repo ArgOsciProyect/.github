@@ -8,7 +8,7 @@ ARG_OSCI is an open-source oscilloscope project that transforms an ESP32 microco
 2. **Desktop/Mobile Application** - Interface for visualizing and analyzing the acquired signals
 3. **Hardware Add-ons** - Signal conditioning circuits and optional external ADC for higher sampling frequency
 
-This manual covers the setup, operation, and maintenance of the ARG_OSCI system, focusing on practical usage scenarios and technical specifications.
+This manual covers the setup, operation, and maintenance of the ARG_OSCI system.
 
 ## 1. Installing the Firmware
 
