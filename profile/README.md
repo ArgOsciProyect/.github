@@ -19,7 +19,6 @@ Before installing the ARG_OSCI firmware, ensure you have:
 - ESP32 development board
 - Micro USB cable
 - Computer with Internet connection
-- [Optional] External ADC module for higher sampling rates
 
 ### 1.2 Installing the Firmware Installer
 
