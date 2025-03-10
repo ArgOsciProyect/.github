@@ -263,8 +263,6 @@ The sampling frequency determines the rate at which the ESP32 captures signals a
 - The maximum frequency that can be correctly visualized is half the sampling frequency (Nyquist theorem)
 - The sampling frequency is set in the ESP32 firmware
 - The application automatically adapts to the configured sampling frequency
-- With internal ADC firmware, the typical frequency is up to 1.65 MHz
-- With external ADC (configured in firmware), higher rates of up to 2.5 MHz can be achieved
 
 The current sampling frequency is displayed in the information panel and affects both the oscilloscope's time resolution and the maximum detectable frequency in the spectrum analyzer.
 
