@@ -95,6 +95,7 @@ This process may take 15-30 minutes depending on your internet connection and co
 
 ![image](https://github.com/user-attachments/assets/2b3a5958-8b96-416d-be2e-77d48699a81a)
 
+
 ### 1.4 Verifying the Installation
 
 After successful installation:
@@ -108,7 +109,16 @@ If you encounter errors during installation:
 1. Check that your ESP32 is properly connected and recognized by your computer
 2. Ensure you have sufficient disk space (at least 2GB required)
 3. Verify that your user account has permission to access the selected serial port
-4. On Linux systems, you may need to add your user to the "dialout" group
+4. On Linux systems, you may need to add your user to the "dialout" group:
+   ```bash
+   sudo usermod -a -G dialout $USER
+   ```
+   After running this command, you'll need to log out and log back in for the changes to take effect.
+   If you still have problems accessing the port, try:
+   ```bash
+   sudo chmod 666 /dev/ttyUSB0
+   ```
+   (Replace ttyUSB0 with your actual port name)
 
 ### 1.5 Firmware Update
 
