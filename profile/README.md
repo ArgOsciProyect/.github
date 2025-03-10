@@ -389,10 +389,10 @@ The Spectrum Analyzer interface consists of:
 
 | Problem | Possible Solutions |
 |---------|-------------------|
-| No waveform displayed | • Check signal connections<br>• Verify signal is within voltage range<br>• Try Autoset function<br>• Adjust trigger settings |
+| No waveform displayed | • Check signal connections<br>• Try to restart the ESP32<br>• Adjust trigger settings |
 | Unstable waveform | • Adjust trigger level<br>• Change trigger edge<br>• Apply filters to reduce noise<br>• Ensure signal is consistent |
 | Clipped waveform | • Select a larger voltage scale<br>• Reduce input signal amplitude |
-| Display freezes | • Pause and resume acquisition<br>• Restart the app<br>• Check if device is overheating |
+| Display freezes | • Pause and resume acquisition<br>• Restart the app<br>• Restart the ESP32 |
 
 ## 2.9 Updating the Application
 
