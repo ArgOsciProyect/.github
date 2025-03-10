@@ -128,3 +128,299 @@ To update the firmware to a newer version:
 3. Click "Install" to download and flash the latest firmware
 
 If you only want to change configuration settings without downloading everything again, use the "Configure & Flash" button instead of "Install".
+
+# 2. App Software Installation & Usage
+
+## 2.1 Requirements
+
+Before installing the ARG_OSCI application, ensure you have:
+
+- A device running one of the supported operating systems:
+  - Windows
+  - Linux
+  - Android
+- ESP32 with ARG_OSCI firmware installed (see Section 1)
+- Stable internet connection (for installation only)
+
+## 2.2 Installing the Application
+
+### 2.2.1 Windows Installation
+
+1. Download the latest Windows package from the [official releases page](https://github.com/ArgOsciProyect/ARG_OSCI_APP/releases)
+2. Extract the `windows-release.zip` file to a folder of your choice
+3. Run the `arg_osci_app.exe` executable
+
+**Note**: Windows SmartScreen may show a warning. This is normal for applications without a digital signature. Click "More information" and then "Run anyway".
+
+<!-- IMAGE: Screenshot of Windows SmartScreen warning dialog with "More info" option highlighted -->
+
+### 2.2.2 Linux Installation
+
+Three installation methods are available for Linux:
+
+#### AppImage (Recommended)
+
+1. Download the `.AppImage` file from the [official releases page](https://github.com/ArgOsciProyect/ARG_OSCI_APP/releases)
+2. Make the file executable:
+   ```bash
+   chmod +x arg-osci-*.AppImage
+   ```
+3. Run the AppImage:
+   ```bash
+   ./arg-osci-*.AppImage
+   ```
+
+#### Debian/Ubuntu (.deb)
+
+1. Download the `.deb` package from the [official releases page](https://github.com/ArgOsciProyect/ARG_OSCI_APP/releases)
+2. Install with:
+   ```bash
+   sudo dpkg -i arg-osci-*.deb
+   ```
+   or
+   ```bash
+   sudo apt install ./arg-osci-*.deb
+   ```
+3. Launch from your applications menu or run `arg-osci` in terminal
+
+#### RPM-based Distributions (Fedora, RHEL, etc.)
+
+1. Download the `.rpm` package from the [official releases page](https://github.com/ArgOsciProyect/ARG_OSCI_APP/releases)
+2. Install with:
+   ```bash
+   sudo rpm -i arg-osci-*.rpm
+   ```
+   or
+   ```bash
+   sudo dnf install ./arg-osci-*.rpm
+   ```
+3. Launch from your applications menu or run `arg-osci` in terminal
+
+### 2.2.3 Android Installation
+
+1. Download the `.apk` file from the [official releases page](https://github.com/ArgOsciProyect/ARG_OSCI_APP/releases)
+2. Enable "Install from Unknown Sources" in your device settings if not already enabled
+   - Navigate to Settings > Security > Install Unknown Apps
+   - Select the browser or file manager you'll use to open the APK
+   - Toggle "Allow from this source"
+3. Open the downloaded APK file and follow the installation prompts
+4. Once installed, open the ARG_OSCI app from your app drawer
+
+<!-- IMAGE: Screenshot showing Android "Install unknown apps" settings screen -->
+
+## 2.3 Initial Connection Setup
+
+When you first launch the ARG_OSCI app, you'll need to establish a connection with your ESP32 device.
+
+### 2.3.1 AP Mode Selection
+
+1. On the initial setup screen, tap the "Select AP Mode" button
+
+<!-- IMAGE: Screenshot of the app's initial screen with "Select AP Mode" button -->
+
+2. The app will attempt to connect to the ESP32's access point
+3. Once connected, you'll be presented with two options:
+   - **Local AP**: Use the ESP32's own WiFi network (recommended for direct connections)
+   - **External AP**: Connect the ESP32 to your existing WiFi network (recommended for long-term usage)
+
+<!-- IMAGE: Screenshot of the AP Mode selection dialog showing both options -->
+
+### 2.3.2 Local AP Mode
+
+If you selected "Local AP":
+
+1. The app will maintain connection to the ESP32's WiFi network
+2. You'll be taken directly to the Mode Selection screen
+3. Your device will remain connected to the ESP32 WiFi network while using the app
+
+**Note**: In this mode, your device won't have internet access while connected to the ESP32.
+
+### 2.3.3 External AP Mode
+
+If you selected "External AP":
+
+1. The app will scan for available WiFi networks
+2. Select your home/office WiFi network from the list
+
+<!-- IMAGE: Screenshot of WiFi network scanning/selection dialog -->
+
+3. Enter the password for the selected network
+
+<!-- IMAGE: Screenshot of WiFi password entry dialog -->
+
+4. The app will configure the ESP32 to connect to your WiFi network
+5. Your mobile device will automatically switch to the same WiFi network
+6. Once connected, you'll be taken to the Mode Selection screen
+
+**Note**: If the connection fails, you'll see error options to retry or exit. Ensure your WiFi credentials are correct and the network is accessible.
+
+## 2.4 Display Modes
+
+ARG_OSCI offers two primary modes for signal visualization:
+
+### 2.4.1 Oscilloscope Mode
+
+The Oscilloscope mode displays signals in the time domain, showing voltage over time, similar to a traditional oscilloscope.
+
+<!-- IMAGE: Screenshot of the app in Oscilloscope mode showing a sine wave -->
+
+Key features:
+- Real-time waveform display
+- Adjustable time and voltage scales
+- Trigger settings for stable waveform capture
+- Pan and zoom controls
+- Play/pause functionality
+
+### 2.4.2 Spectrum Analyzer Mode
+
+The Spectrum Analyzer mode performs Fast Fourier Transform (FFT) on the input signal, displaying the frequency components.
+
+<!-- IMAGE: Screenshot of the app in Spectrum Analyzer mode showing frequency peaks -->
+
+Key features:
+- Frequency domain visualization
+- Adjustable frequency and amplitude scales
+- Pan and zoom controls
+- Play/pause functionality
+- Dominant frequency detection
+
+## 2.5 Using the Oscilloscope Mode
+
+### 2.5.1 Understanding the Interface
+
+The Oscilloscope mode interface consists of:
+
+<!-- IMAGE: Labeled screenshot of Oscilloscope interface with main components marked -->
+
+1. **Main chart area**: Displays the waveform
+2. **Control panel**: Contains playback and view controls
+3. **Settings panel**: Contains adjustable parameters for acquisition and display
+4. **Information bar**: Shows frequency and other measurements
+
+### 2.5.2 Basic Controls
+
+- **Play/Pause**: Controls whether the display updates with new data
+- **Zoom controls**: Adjust the time scale (X-axis) and voltage scale (Y-axis)
+- **Pan controls**: Move the view horizontally and vertically
+- **Autoset**: Automatically adjusts scales to optimize the displayed waveform
+
+### 2.5.3 Trigger Settings
+
+Triggers determine when the oscilloscope begins a trace, helping to stabilize repetitive waveforms:
+
+- **Trigger Level**: The voltage level at which the trigger activates
+  - Adjust using the slider or enter a specific value
+- **Trigger Edge**: Choose between:
+  - **Positive**: Triggers when signal crosses trigger level from low to high
+  - **Negative**: Triggers when signal crosses trigger level from high to low
+- **Trigger Mode**:
+  - **Normal**: Continuously captures data when trigger conditions are met
+  - **Single**: Captures a single trace when trigger conditions are met, then pauses
+
+<!-- IMAGE: Screenshot of trigger settings section with labels -->
+
+### 2.5.4 Voltage Scale
+
+Select the appropriate voltage scale based on your input signal:
+
+- Available ranges: ±400V, ±2V, ±1V, ±500mV, ±200mV, ±100mV
+- Smaller voltage ranges provide higher resolution for low-voltage signals
+- Ensure your signal doesn't exceed the selected range to avoid clipping
+
+<!-- IMAGE: Screenshot of voltage scale dropdown with options visible -->
+
+### 2.5.5 Filter Settings
+
+Filters can help clean up noisy signals:
+
+- **Filter Type**:
+  - **None**: No filtering applied
+  - **Moving Average**: Smooths the signal by averaging nearby samples
+  - **Exponential**: Applies exponential smoothing
+  - **Low Pass**: Removes high-frequency components
+- **Filter Parameters** (vary by filter type):
+  - Window Size: Number of samples to consider for averaging
+  - Alpha: Smoothing factor for exponential filter
+  - Cutoff Frequency: Threshold frequency for low-pass filter
+
+<!-- IMAGE: Screenshot of filter settings section -->
+
+### 2.5.6 Advanced Controls
+
+- **Double Filtering**: When enabled, applies the filter twice for stronger smoothing
+- **Hysteresis**: Prevents multiple triggers from noise around the trigger level
+
+## 2.6 Using the Spectrum Analyzer Mode
+
+### 2.6.1 Understanding the Interface
+
+The Spectrum Analyzer interface consists of:
+
+<!-- IMAGE: Labeled screenshot of Spectrum Analyzer interface with main components marked -->
+
+1. **Main chart area**: Displays the frequency spectrum
+2. **Control panel**: Contains playback and view controls
+3. **Settings panel**: Contains adjustable parameters
+4. **Information bar**: Shows dominant frequency and other measurements
+
+### 2.6.2 Basic Controls
+
+- **Play/Pause**: Controls whether the display updates with new data
+- **Zoom controls**: Adjust the frequency scale (X-axis) and amplitude scale (Y-axis)
+- **Pan controls**: Move the view horizontally and vertically
+- **Autoset**: Automatically adjusts scales to show the most relevant frequency content
+
+### 2.6.3 Interpreting the Display
+
+- **X-axis**: Frequency in Hz, kHz, or MHz
+- **Y-axis**: Signal magnitude in dB
+- **Peaks**: Represent strong frequency components in the signal
+- **Dominant Frequency**: The frequency with the highest magnitude, displayed in the information section
+
+<!-- IMAGE: Screenshot of FFT display with labels pointing to peaks and axes -->
+
+### 2.6.4 Filter Settings
+
+Similar to Oscilloscope mode, filters can be applied to the time-domain signal before FFT calculation:
+
+- Available filter types include Low Pass, Moving Average, and Exponential
+- Filter settings affect how the frequency spectrum appears
+
+### 2.6.5 Sampling Frequency
+
+The sampling frequency determines the maximum frequency that can be displayed according to the Nyquist theorem:
+
+- The maximum displayable frequency is half the sampling frequency
+- The sampling frequency is retrieved from the ESP32.
+- The sampling frequency can be increased or reduced, the value depends on firmware, the app only adapts to the value received from the firmware.
+
+## 2.7 Troubleshooting
+
+### 2.7.1 Connection Issues
+
+| Problem | Possible Solutions |
+|---------|-------------------|
+| Cannot find ESP32 WiFi network | • Ensure ESP32 is powered on<br>• Verify firmware installation<br>• Restart ESP32<br>• Reset WiFi settings |
+| Connection timeout | • Move closer to ESP32<br>• Reduce WiFi interference<br>• Restart ESP32 and app |
+| Cannot connect to external WiFi | • Verify WiFi credentials<br>• Ensure network is in range<br>• Check if network requires portal authentication |
+
+### 2.7.2 Display Issues
+
+| Problem | Possible Solutions |
+|---------|-------------------|
+| No waveform displayed | • Check signal connections<br>• Verify signal is within voltage range<br>• Try Autoset function<br>• Adjust trigger settings |
+| Unstable waveform | • Adjust trigger level<br>• Change trigger edge<br>• Apply filters to reduce noise<br>• Ensure signal is consistent |
+| Clipped waveform | • Select a larger voltage scale<br>• Reduce input signal amplitude |
+| Display freezes | • Pause and resume acquisition<br>• Restart the app<br>• Check if device is overheating |
+
+## 2.9 Updating the Application
+
+To update the ARG_OSCI app:
+
+1. Visit the [official releases page](https://github.com/ArgOsciProyect/ARG_OSCI_APP/releases)
+2. Download the latest version for your platform
+3. Install following the same procedure as the initial installation
+   - For Windows and Linux, you can replace the existing files
+   - For Android, install the new APK
+
+Configuration settings will be preserved across updates.
