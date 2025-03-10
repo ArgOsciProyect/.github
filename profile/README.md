@@ -45,9 +45,9 @@ The ARG_OSCI firmware can be installed using our dedicated installer application
 
 **Note**: The installation script for Linux may need to install additional dependencies. You will be prompted for confirmation before the installation of packages. 
 
-![image](https://github.com/user-attachments/assets/a0e177c6-e949-4ba6-bc0b-f6b371ee78da)
+![image](https://github.com/user-attachments/assets/8ba4c352-2ec9-4a2a-8371-be57e5e5a09a)
 
-![image](https://github.com/user-attachments/assets/fcff183f-951f-462f-9187-cb51d1c78cbb)
+![image](https://github.com/user-attachments/assets/6423c2d7-1d26-4147-a150-b7970a1e7b9d)
 
 ### 1.3 Firmware Installation Procedure
 
