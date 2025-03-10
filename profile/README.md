@@ -254,57 +254,33 @@ If you selected "External AP":
 
 **Note**: If the connection fails, you'll see error options to retry or exit. Ensure your WiFi credentials are correct and the network is accessible.
 
-## 2.4 Display Modes
+## 2.4 Common Signal Processing Settings
 
-ARG_OSCI offers two primary modes for signal visualization:
+### 2.4.1 Sampling Frequency
 
-### 2.4.1 Oscilloscope Mode
+The sampling frequency determines the rate at which the ESP32 captures signals and directly affects both visualization modes:
 
-The Oscilloscope mode displays signals in the time domain, showing voltage over time, similar to a traditional oscilloscope.
+- The maximum frequency that can be correctly visualized is half the sampling frequency (Nyquist theorem)
+- The sampling frequency is set in the ESP32 firmware
+- The application automatically adapts to the configured sampling frequency
+- With internal ADC firmware, the typical frequency is up to 1.65 MHz
+- With external ADC (configured in firmware), higher rates of up to 2.5 MHz can be achieved
 
-<!-- IMAGE: Screenshot of the app in Oscilloscope mode showing a sine wave -->
+The current sampling frequency is displayed in the information panel and affects both the oscilloscope's time resolution and the maximum detectable frequency in the spectrum analyzer.
 
-Key features:
-- Real-time waveform display
-- Adjustable time and voltage scales
-- Trigger settings for stable waveform capture
-- Pan and zoom controls
-- Play/pause functionality
+<!-- IMAGE: Screenshot showing the sampling frequency display in the information panel -->
 
-### 2.4.2 Spectrum Analyzer Mode
+### 2.4.2 Voltage Scale
 
-The Spectrum Analyzer mode performs Fast Fourier Transform (FFT) on the input signal, displaying the frequency components.
+Select the appropriate voltage scale based on your input signal:
 
-<!-- IMAGE: Screenshot of the app in Spectrum Analyzer mode showing frequency peaks -->
+- Available ranges: ±400V, ±2V, ±1V, ±500mV, ±200mV, ±100mV
+- Smaller voltage ranges provide higher resolution for low-voltage signals
+- Ensure your signal doesn't exceed the selected range to avoid clipping
 
-Key features:
-- Frequency domain visualization
-- Adjustable frequency and amplitude scales
-- Pan and zoom controls
-- Play/pause functionality
-- Dominant frequency detection
+<!-- IMAGE: Screenshot of voltage scale dropdown with options visible -->
 
-## 2.5 Using the Oscilloscope Mode
-
-### 2.5.1 Understanding the Interface
-
-The Oscilloscope mode interface consists of:
-
-<!-- IMAGE: Labeled screenshot of Oscilloscope interface with main components marked -->
-
-1. **Main chart area**: Displays the waveform
-2. **Control panel**: Contains playback and view controls
-3. **Settings panel**: Contains adjustable parameters for acquisition and display
-4. **Information bar**: Shows frequency and other measurements
-
-### 2.5.2 Basic Controls
-
-- **Play/Pause**: Controls whether the display updates with new data
-- **Zoom controls**: Adjust the time scale (X-axis) and voltage scale (Y-axis)
-- **Pan controls**: Move the view horizontally and vertically
-- **Autoset**: Automatically adjusts scales to optimize the displayed waveform
-
-### 2.5.3 Trigger Settings
+### 2.4.3 Trigger Settings
 
 Triggers determine when the oscilloscope begins a trace, helping to stabilize repetitive waveforms:
 
@@ -319,19 +295,9 @@ Triggers determine when the oscilloscope begins a trace, helping to stabilize re
 
 <!-- IMAGE: Screenshot of trigger settings section with labels -->
 
-### 2.5.4 Voltage Scale
+### 2.4.4 Filter Settings
 
-Select the appropriate voltage scale based on your input signal:
-
-- Available ranges: ±400V, ±2V, ±1V, ±500mV, ±200mV, ±100mV
-- Smaller voltage ranges provide higher resolution for low-voltage signals
-- Ensure your signal doesn't exceed the selected range to avoid clipping
-
-<!-- IMAGE: Screenshot of voltage scale dropdown with options visible -->
-
-### 2.5.5 Filter Settings
-
-Filters can help clean up noisy signals:
+Filters can help clean up noisy signals in both visualization modes:
 
 - **Filter Type**:
   - **None**: No filtering applied
@@ -345,10 +311,36 @@ Filters can help clean up noisy signals:
 
 <!-- IMAGE: Screenshot of filter settings section -->
 
-### 2.5.6 Advanced Controls
+### 2.4.5 Advanced Controls
 
 - **Double Filtering**: When enabled, applies the filter twice for stronger smoothing
 - **Hysteresis**: Prevents multiple triggers from noise around the trigger level
+
+## 2.5 Using the Oscilloscope Mode
+
+### 2.5.1 Understanding the Interface
+
+The Oscilloscope mode interface consists of:
+
+<!-- IMAGE: Labeled screenshot of Oscilloscope interface with main components marked -->
+
+1. **Main chart area**: Displays the waveform
+2. **Control panel**: Contains playback and view controls
+3. **Information bar**: Shows frequency and other measurements
+
+### 2.5.2 Basic Controls
+
+- **Play/Pause**: Controls whether the display updates with new data
+- **Zoom controls**: Adjust the time scale (X-axis) and voltage scale (Y-axis)
+- **Pan controls**: Move the view horizontally and vertically
+- **Autoset**: Automatically adjusts scales to optimize the displayed waveform
+
+### 2.5.3 Special Features
+
+- **Waveform viewing**: Real-time display of voltage over time
+- **Time measurements**: Measure time intervals between signal features
+- **Amplitude measurements**: Measure peak-to-peak and other voltage values
+- **Frequency calculation**: Real-time calculation of signal frequency
 
 ## 2.6 Using the Spectrum Analyzer Mode
 
@@ -360,8 +352,7 @@ The Spectrum Analyzer interface consists of:
 
 1. **Main chart area**: Displays the frequency spectrum
 2. **Control panel**: Contains playback and view controls
-3. **Settings panel**: Contains adjustable parameters
-4. **Information bar**: Shows dominant frequency and other measurements
+3. **Information bar**: Shows dominant frequency and other measurements
 
 ### 2.6.2 Basic Controls
 
@@ -379,20 +370,12 @@ The Spectrum Analyzer interface consists of:
 
 <!-- IMAGE: Screenshot of FFT display with labels pointing to peaks and axes -->
 
-### 2.6.4 Filter Settings
+### 2.6.4 Special Features
 
-Similar to Oscilloscope mode, filters can be applied to the time-domain signal before FFT calculation:
-
-- Available filter types include Low Pass, Moving Average, and Exponential
-- Filter settings affect how the frequency spectrum appears
-
-### 2.6.5 Sampling Frequency
-
-The sampling frequency determines the maximum frequency that can be displayed according to the Nyquist theorem:
-
-- The maximum displayable frequency is half the sampling frequency
-- The sampling frequency is retrieved from the ESP32.
-- The sampling frequency can be increased or reduced, the value depends on firmware, the app only adapts to the value received from the firmware.
+- **Frequency domain analysis**: Visualize the spectral components of your signal
+- **Dominant frequency detection**: Automatically identify the strongest frequency component
+- **Logarithmic amplitude scale**: Better visualization of wide dynamic range signals
+- **Adjustable frequency resolution**: Zoom in to distinguish closely spaced frequency components
 
 ## 2.7 Troubleshooting
 
