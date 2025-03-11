@@ -220,8 +220,8 @@ When you first launch the ARG_OSCI app, you'll need to establish a connection wi
 
 2. The app will attempt to connect to the ESP32's access point
 3. Once connected, you'll be presented with two options:
-   - **Local AP**: Use the ESP32's own WiFi network (recommended for direct connections)
-   - **External AP**: Connect the ESP32 to your existing WiFi network (recommended for long-term usage)
+   - **Local AP**: Use the ESP32's own WiFi network (recommended)
+   - **External AP**: Connect the ESP32 to your existing WiFi network
 
 <!-- IMAGE: Screenshot of the AP Mode selection dialog showing both options -->
 
