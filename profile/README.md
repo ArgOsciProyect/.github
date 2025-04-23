@@ -272,7 +272,6 @@ The current sampling frequency is displayed in the information panel and affects
 
 Select the appropriate voltage scale based on your input signal:
 
-- Available ranges: ±400V, ±2V, ±1V, ±500mV, ±200mV, ±100mV
 - Smaller voltage ranges provide higher resolution for low-voltage signals
 - Ensure your signal doesn't exceed the selected range to avoid clipping
 
