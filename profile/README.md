@@ -44,25 +44,25 @@
   - [2.7 Troubleshooting](#27-troubleshooting)
     - [2.7.1 Connection Issues](#271-connection-issues)
     - [2.7.2 Display Issues](#272-display-issues)
-  - [2.9 Updating the Application](#29-updating-the-application)
+  - [2.8 Updating the Application](#29-updating-the-application)
 - [3. Hardware Manual](#3-hardware-manual)
   - [3.1 Product Overview](#31-product-overview)
   - [3.2 Hardware Implementation](#32-hardware-implementation)
-    - [Voltage Scales and Attenuation Stages](#voltage-scales-and-attenuation-stages)
-    - [AC/DC Coupling](#acdc-coupling)
-    - [Signal Conditioning and ADC Modes](#signal-conditioning-and-adc-modes)
+    - [3.2.1 Voltage Scales and Attenuation Stages](#voltage-scales-and-attenuation-stages)
+    - [3.2.2 AC/DC Coupling](#acdc-coupling)
+    - [3.2.3 Signal Conditioning and ADC Modes](#signal-conditioning-and-adc-modes)
       - [Internal ADC (ESP32)](#internal-adc-esp32)
       - [External ADC (ADS7884)](#external-adc-ads7884)
-    - [Compensation and Calibration](#compensation-and-calibration)
-    - [Power Supply](#power-supply)
-    - [Offset Correction](#offset-correction)
-    - [Frequency Response and Expected Error](#frequency-response-and-expected-error)
-    - [Design Considerations](#design-considerations)
-    - [Functional Behavior](#functional-behavior)
-    - [Known Issues & Future Improvements](#known-issues--future-improvements)
-      - [Known Issues](#known-issues)
-      - [Future Improvements](#future-improvements)
-    - [Images](#images)
+  - [3.3 Compensation and Calibration](#compensation-and-calibration)
+  - [3.4 Power Supply](#power-supply)
+  - [3.5 Offset Correction](#offset-correction)
+  - [3.6 Frequency Response and Expected Error](#frequency-response-and-expected-error)
+  - [3.7 Design Considerations](#design-considerations)
+  - [3.8 Functional Behavior](#functional-behavior)
+  - [3.9 Known Issues & Future Improvements](#known-issues--future-improvements)
+    - [3.9.1 Known Issues](#known-issues)
+    - [3.9.2 Future Improvements](#future-improvements)
+  - [3.10 Images](#images)
 
 ## Introduction
 
@@ -458,7 +458,7 @@ The Spectrum Analyzer interface consists of:
 | Clipped waveform | • Select a larger voltage scale<br>• Reduce input signal amplitude |
 | Display freezes | • Pause and resume acquisition<br>• Restart the app<br>• Restart the ESP32 |
 
-### 2.9 Updating the Application
+### 2.8 Updating the Application
 
 To update the ARG_OSCI app:
 
@@ -493,7 +493,7 @@ ARG_OSCI enables reliable signal acquisition through 8 selectable voltage ranges
 
 ### 3.2 Hardware Implementation
 
-#### Voltage Scales and Attenuation Stages
+#### 3.2.1 Voltage Scales and Attenuation Stages
 
 Signal scaling is achieved through **two cascaded attenuation stages** controlled via mechanical switches:
 
@@ -515,7 +515,7 @@ This configuration yields 8 total scales:
 
 Switches allow quick manual selection of attenuation paths, providing hardware-level reliability and simplicity.
 
-#### AC/DC Coupling
+#### 3.2.2 AC/DC Coupling
 
 Coupling mode is selected via a **physical switch**:
 
@@ -524,7 +524,7 @@ Coupling mode is selected via a **physical switch**:
 
 > When switching to AC mode, start with the **highest voltage scale** to avoid damage from DC transients. After a few seconds, return to the appropriate scale for the AC signal of interest.
 
-#### Signal Conditioning and ADC Modes
+#### 3.2.3 Signal Conditioning and ADC Modes
 
 ARG_OSCI supports two acquisition modes:
 
@@ -543,7 +543,7 @@ ARG_OSCI supports two acquisition modes:
 
 Both paths include **anti-aliasing low-pass filters** designed to suppress high-frequency noise and avoid spectral folding.
 
-### Compensation and Calibration
+### 3.3 Compensation and Calibration
 
 A **variable capacitor (trimmer)** is used to compensate for the parasitic capacitance of the signal path and switching network. Calibration ensures a flat frequency response.
 
@@ -552,7 +552,7 @@ A **variable capacitor (trimmer)** is used to compensate for the parasitic capac
 
 Although other scales can be used for compensation, the limited tuning range of the trimmer may not be sufficient for high-voltage scales.
 
-### Power Supply
+### 3.4 Power Supply
 
 - Device powered via 5V USB or external 5V supply
 - –5V rail is generated internally via LM2776 inverter
@@ -561,7 +561,7 @@ Although other scales can be used for compensation, the limited tuning range of 
 
 > Power supply ripple or variation on the –5V rail can introduce baseline offset.
 
-### Offset Correction
+### 3.5 Offset Correction
 
 In case of unwanted signal offset due to analog front-end or supply variations:
 
@@ -580,7 +580,7 @@ $mid_{corrected} = mid_{default} + (max_{default} - mid_{default}) × \frac{V_{m
 
 > After adjusting mid_corrected, ensure that max_corrected remains less than twice the midpoint to preserve signal range and linearity.
 
-### Frequency Response and Expected Error
+### 3.6 Frequency Response and Expected Error
 
 Due to component tolerances (~5%), the analog front-end may present small deviations in frequency response.
 
@@ -594,14 +594,14 @@ An error chart is available showing the variation of gain versus frequency for e
 > - The series capacitor in the second attenuation stage
 > - The 40x attenuator in the first stage
 
-###  Design Considerations
+###  3.7 Design Considerations
 
 - Minimize trace length between ESP32 and ADS7884
 - Shield analog paths where possible
 - Avoid switching between scales during active sampling
 - Always verify input voltage before scale selection
 
-### Functional Behavior
+### 3.8 Functional Behavior
 
 - Manual selection of input scale and coupling
 - Visual feedback via onboard LED when device is ready to connect
@@ -609,20 +609,20 @@ An error chart is available showing the variation of gain versus frequency for e
 - Quick calibration via built-in test signal and trimmer
 - Real-time data streaming to companion software
 
-### Known Issues & Future Improvements
+### 3.9 Known Issues & Future Improvements
 
-#### Known Issues
+#### 3.9.1 Known Issues
 
 - Limited trimmer range limits compensation on high voltage scales
 - –5V rail may introduce noise or offset if not externally regulated
 
-#### Future Improvements
+#### 3.9.2 Future Improvements
 
 - Firmware-based automatic zero-level calibration
 - Modularize front-end for multi-channel acquisition
 - Improve PCB layout for EMC and signal integrity
 
-### Images
+### 3.10 Images
 
 - PCB layout (bot and top side)
   
