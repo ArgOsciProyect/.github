@@ -1,5 +1,69 @@
 # ARG_OSCI User Manual
 
+## Table of Contents
+- [Introduction](#introduction)
+- [1. Installing the Firmware](#1-installing-the-firmware)
+  - [1.1 Requirements](#11-requirements)
+  - [1.2 Installing the Firmware Installer](#12-installing-the-firmware-installer)
+    - [Windows Installation](#windows-installation)
+    - [Linux Installation](#linux-installation)
+  - [1.3 Firmware Installation Procedure](#13-firmware-installation-procedure)
+    - [Step 1: Configuration](#step-1-configuration)
+    - [Step 2: Installation Paths](#step-2-installation-paths)
+    - [Step 3: Installation Process](#step-3-installation-process)
+  - [1.4 Verifying the Installation](#14-verifying-the-installation)
+  - [1.5 Firmware Update](#15-firmware-update)
+- [2. App Software Installation & Usage](#2-app-software-installation--usage)
+  - [2.1 Requirements](#21-requirements)
+  - [2.2 Installing the Application](#22-installing-the-application)
+    - [2.2.1 Windows Installation](#221-windows-installation)
+    - [2.2.2 Linux Installation](#222-linux-installation)
+      - [AppImage (Recommended)](#appimage-recommended)
+      - [Debian/Ubuntu (.deb)](#debianubuntu-deb)
+      - [RPM-based Distributions (Fedora, RHEL, etc.)](#rpm-based-distributions-fedora-rhel-etc)
+    - [2.2.3 Android Installation](#223-android-installation)
+  - [2.3 Initial Connection Setup](#23-initial-connection-setup)
+    - [2.3.1 AP Mode Selection](#231-ap-mode-selection)
+    - [2.3.2 Local AP Mode](#232-local-ap-mode)
+    - [2.3.3 External AP Mode](#233-external-ap-mode)
+  - [2.4 Common Signal Processing Settings](#24-common-signal-processing-settings)
+    - [2.4.1 Sampling Frequency](#241-sampling-frequency)
+    - [2.4.2 Voltage Scale](#242-voltage-scale)
+    - [2.4.3 Trigger Settings](#243-trigger-settings)
+    - [2.4.4 Filter Settings](#244-filter-settings)
+    - [2.4.5 Advanced Controls](#245-advanced-controls)
+  - [2.5 Using the Oscilloscope Mode](#25-using-the-oscilloscope-mode)
+    - [2.5.1 Understanding the Interface](#251-understanding-the-interface)
+    - [2.5.2 Basic Controls](#252-basic-controls)
+    - [2.5.3 Special Features](#253-special-features)
+  - [2.6 Using the Spectrum Analyzer Mode](#26-using-the-spectrum-analyzer-mode)
+    - [2.6.1 Understanding the Interface](#261-understanding-the-interface)
+    - [2.6.2 Basic Controls](#262-basic-controls)
+    - [2.6.3 Interpreting the Display](#263-interpreting-the-display)
+    - [2.6.4 Special Features](#264-special-features)
+  - [2.7 Troubleshooting](#27-troubleshooting)
+    - [2.7.1 Connection Issues](#271-connection-issues)
+    - [2.7.2 Display Issues](#272-display-issues)
+  - [2.9 Updating the Application](#29-updating-the-application)
+- [3. Hardware Manual](#3-hardware-manual)
+  - [3.1 Product Overview](#31-product-overview)
+  - [3.2 Hardware Implementation](#32-hardware-implementation)
+    - [Voltage Scales and Attenuation Stages](#voltage-scales-and-attenuation-stages)
+    - [AC/DC Coupling](#acdc-coupling)
+    - [Signal Conditioning and ADC Modes](#signal-conditioning-and-adc-modes)
+      - [Internal ADC (ESP32)](#internal-adc-esp32)
+      - [External ADC (ADS7884)](#external-adc-ads7884)
+    - [Compensation and Calibration](#compensation-and-calibration)
+    - [Power Supply](#power-supply)
+    - [Offset Correction](#offset-correction)
+    - [Frequency Response and Expected Error](#frequency-response-and-expected-error)
+    - [Design Considerations](#design-considerations)
+    - [Functional Behavior](#functional-behavior)
+    - [Known Issues & Future Improvements](#known-issues--future-improvements)
+      - [Known Issues](#known-issues)
+      - [Future Improvements](#future-improvements)
+    - [Images](#images)
+
 ## Introduction
 
 ARG_OSCI is an open-source oscilloscope project that transforms an ESP32 microcontroller into a digital signal acquisition device. The complete system consists of:
@@ -129,9 +193,9 @@ To update the firmware to a newer version:
 
 If you only want to change configuration settings without downloading everything again, use the "Configure & Flash" button instead of "Install".
 
-# 2. App Software Installation & Usage
+## 2. App Software Installation & Usage
 
-## 2.1 Requirements
+### 2.1 Requirements
 
 Before installing the ARG_OSCI application, ensure you have:
 
@@ -142,9 +206,9 @@ Before installing the ARG_OSCI application, ensure you have:
 - ESP32 with ARG_OSCI firmware installed (see Section 1)
 - Stable internet connection (for installation only)
 
-## 2.2 Installing the Application
+### 2.2 Installing the Application
 
-### 2.2.1 Windows Installation
+#### 2.2.1 Windows Installation
 
 1. Download the latest Windows package from the [official releases page](https://github.com/ArgOsciProyect/ARG_OSCI_APP/releases)
 2. Extract the `windows-release.zip` file to a folder of your choice
@@ -154,11 +218,11 @@ Before installing the ARG_OSCI application, ensure you have:
 
 <!-- IMAGE: Screenshot of Windows SmartScreen warning dialog with "More info" option highlighted -->
 
-### 2.2.2 Linux Installation
+#### 2.2.2 Linux Installation
 
 Three installation methods are available for Linux:
 
-#### AppImage (Recommended)
+##### AppImage (Recommended)
 
 1. Download the `.AppImage` file from the [official releases page](https://github.com/ArgOsciProyect/ARG_OSCI_APP/releases)
 2. Make the file executable:
@@ -170,7 +234,7 @@ Three installation methods are available for Linux:
    ./arg-osci-*.AppImage
    ```
 
-#### Debian/Ubuntu (.deb)
+##### Debian/Ubuntu (.deb)
 
 1. Download the `.deb` package from the [official releases page](https://github.com/ArgOsciProyect/ARG_OSCI_APP/releases)
 2. Install with:
@@ -183,7 +247,7 @@ Three installation methods are available for Linux:
    ```
 3. Launch from your applications menu or run `arg-osci` in terminal
 
-#### RPM-based Distributions (Fedora, RHEL, etc.)
+##### RPM-based Distributions (Fedora, RHEL, etc.)
 
 1. Download the `.rpm` package from the [official releases page](https://github.com/ArgOsciProyect/ARG_OSCI_APP/releases)
 2. Install with:
@@ -196,7 +260,7 @@ Three installation methods are available for Linux:
    ```
 3. Launch from your applications menu or run `arg-osci` in terminal
 
-### 2.2.3 Android Installation
+#### 2.2.3 Android Installation
 
 1. Download the `.apk` file from the [official releases page](https://github.com/ArgOsciProyect/ARG_OSCI_APP/releases)
 2. Enable "Install from Unknown Sources" in your device settings if not already enabled
@@ -208,11 +272,11 @@ Three installation methods are available for Linux:
 
 <!-- IMAGE: Screenshot showing Android "Install unknown apps" settings screen -->
 
-## 2.3 Initial Connection Setup
+### 2.3 Initial Connection Setup
 
 When you first launch the ARG_OSCI app, you'll need to establish a connection with your ESP32 device.
 
-### 2.3.1 AP Mode Selection
+#### 2.3.1 AP Mode Selection
 
 1. On the initial setup screen, tap the "Select AP Mode" button
 
@@ -225,7 +289,7 @@ When you first launch the ARG_OSCI app, you'll need to establish a connection wi
 
 <!-- IMAGE: Screenshot of the AP Mode selection dialog showing both options -->
 
-### 2.3.2 Local AP Mode
+#### 2.3.2 Local AP Mode
 
 If you selected "Local AP":
 
@@ -235,7 +299,7 @@ If you selected "Local AP":
 
 **Note**: In this mode, your device won't have internet access while connected to the ESP32.
 
-### 2.3.3 External AP Mode
+#### 2.3.3 External AP Mode
 
 If you selected "External AP":
 
@@ -254,9 +318,9 @@ If you selected "External AP":
 
 **Note**: If the connection fails, you'll see error options to retry or exit. Ensure your WiFi credentials are correct and the network is accessible.
 
-## 2.4 Common Signal Processing Settings
+### 2.4 Common Signal Processing Settings
 
-### 2.4.1 Sampling Frequency
+#### 2.4.1 Sampling Frequency
 
 The sampling frequency determines the rate at which the ESP32 captures signals and directly affects both visualization modes:
 
@@ -268,16 +332,17 @@ The current sampling frequency is displayed in the information panel and affects
 
 <!-- IMAGE: Screenshot showing the sampling frequency display in the information panel -->
 
-### 2.4.2 Voltage Scale
+#### 2.4.2 Voltage Scale
 
 Select the appropriate voltage scale based on your input signal:
 
+- Available ranges: ±400V, ±2V, ±1V, ±500mV, ±200mV, ±100mV
 - Smaller voltage ranges provide higher resolution for low-voltage signals
 - Ensure your signal doesn't exceed the selected range to avoid clipping
 
 <!-- IMAGE: Screenshot of voltage scale dropdown with options visible -->
 
-### 2.4.3 Trigger Settings
+#### 2.4.3 Trigger Settings
 
 Triggers determine when the oscilloscope begins a trace, helping to stabilize repetitive waveforms:
 
@@ -292,7 +357,7 @@ Triggers determine when the oscilloscope begins a trace, helping to stabilize re
 
 <!-- IMAGE: Screenshot of trigger settings section with labels -->
 
-### 2.4.4 Filter Settings
+#### 2.4.4 Filter Settings
 
 Filters can help clean up noisy signals in both visualization modes:
 
@@ -308,14 +373,14 @@ Filters can help clean up noisy signals in both visualization modes:
 
 <!-- IMAGE: Screenshot of filter settings section -->
 
-### 2.4.5 Advanced Controls
+#### 2.4.5 Advanced Controls
 
 - **Double Filtering**: When enabled, applies the filter twice for stronger smoothing
 - **Hysteresis**: Prevents multiple triggers from noise around the trigger level
 
-## 2.5 Using the Oscilloscope Mode
+### 2.5 Using the Oscilloscope Mode
 
-### 2.5.1 Understanding the Interface
+#### 2.5.1 Understanding the Interface
 
 The Oscilloscope mode interface consists of:
 
@@ -325,23 +390,23 @@ The Oscilloscope mode interface consists of:
 2. **Control panel**: Contains playback and view controls
 3. **Information bar**: Shows frequency and other measurements
 
-### 2.5.2 Basic Controls
+#### 2.5.2 Basic Controls
 
 - **Play/Pause**: Controls whether the display updates with new data
 - **Zoom controls**: Adjust the time scale (X-axis) and voltage scale (Y-axis)
 - **Pan controls**: Move the view horizontally and vertically
 - **Autoset**: Automatically adjusts scales to optimize the displayed waveform
 
-### 2.5.3 Special Features
+#### 2.5.3 Special Features
 
 - **Waveform viewing**: Real-time display of voltage over time
 - **Time measurements**: Measure time intervals between signal features
 - **Amplitude measurements**: Measure peak-to-peak and other voltage values
 - **Frequency calculation**: Real-time calculation of signal frequency
 
-## 2.6 Using the Spectrum Analyzer Mode
+### 2.6 Using the Spectrum Analyzer Mode
 
-### 2.6.1 Understanding the Interface
+#### 2.6.1 Understanding the Interface
 
 The Spectrum Analyzer interface consists of:
 
@@ -351,14 +416,14 @@ The Spectrum Analyzer interface consists of:
 2. **Control panel**: Contains playback and view controls
 3. **Information bar**: Shows dominant frequency and other measurements
 
-### 2.6.2 Basic Controls
+#### 2.6.2 Basic Controls
 
 - **Play/Pause**: Controls whether the display updates with new data
 - **Zoom controls**: Adjust the frequency scale (X-axis) and amplitude scale (Y-axis)
 - **Pan controls**: Move the view horizontally and vertically
 - **Autoset**: Automatically adjusts scales to show the most relevant frequency content
 
-### 2.6.3 Interpreting the Display
+#### 2.6.3 Interpreting the Display
 
 - **X-axis**: Frequency in Hz, kHz, or MHz
 - **Y-axis**: Signal magnitude in dB
@@ -367,16 +432,16 @@ The Spectrum Analyzer interface consists of:
 
 <!-- IMAGE: Screenshot of FFT display with labels pointing to peaks and axes -->
 
-### 2.6.4 Special Features
+#### 2.6.4 Special Features
 
 - **Frequency domain analysis**: Visualize the spectral components of your signal
 - **Dominant frequency detection**: Automatically identify the strongest frequency component
 - **Logarithmic amplitude scale**: Better visualization of wide dynamic range signals
 - **Adjustable frequency resolution**: Zoom in to distinguish closely spaced frequency components
 
-## 2.7 Troubleshooting
+### 2.7 Troubleshooting
 
-### 2.7.1 Connection Issues
+#### 2.7.1 Connection Issues
 
 | Problem | Possible Solutions |
 |---------|-------------------|
@@ -384,7 +449,7 @@ The Spectrum Analyzer interface consists of:
 | Connection timeout | • Move closer to ESP32<br>• Reduce WiFi interference<br>• Restart ESP32 and app |
 | Cannot connect to external WiFi | • Verify WiFi credentials<br>• Ensure network is in range<br>• Check if network requires portal authentication |
 
-### 2.7.2 Display Issues
+#### 2.7.2 Display Issues
 
 | Problem | Possible Solutions |
 |---------|-------------------|
@@ -393,7 +458,7 @@ The Spectrum Analyzer interface consists of:
 | Clipped waveform | • Select a larger voltage scale<br>• Reduce input signal amplitude |
 | Display freezes | • Pause and resume acquisition<br>• Restart the app<br>• Restart the ESP32 |
 
-## 2.9 Updating the Application
+### 2.9 Updating the Application
 
 To update the ARG_OSCI app:
 
@@ -404,3 +469,179 @@ To update the ARG_OSCI app:
    - For Android, install the new APK
 
 Configuration settings will be preserved across updates.
+
+## 3. Hardware Manual
+
+### 3.1 Product Overview
+
+ARG_OSCI enables reliable signal acquisition through 8 selectable voltage ranges, AC/DC coupling, internal or external ADC channels, and built-in calibration utilities. Designed for educational, prototyping, and semi-professional use, it combines ease of use with signal integrity.
+
+**Key Features:**
+
+- 8 voltage scales ranging from ±0.6V to ±400V
+- AC/DC coupling switchable via physical toggle
+- Two-stage analog attenuation network
+- Input impedance greater than 1 MΩ
+- Input capacitance is below 20pF
+- Internal ESP32 ADC (120 kHz BW) or external ADS7884 ADC (1.25 MHz BW)
+- Anti-aliasing filters on both acquisition paths
+- Built-in 1kHz test signal for compensation
+- ±5V analog supply with optional external –5V input
+- Physical switches for input configuration
+- LED indicator for device readiness
+- Designed with manufacturability and tolerance analysis in mind
+
+### 3.2 Hardware Implementation
+
+#### Voltage Scales and Attenuation Stages
+
+Signal scaling is achieved through **two cascaded attenuation stages** controlled via mechanical switches:
+
+- **Stage A/B**: Coarse attenuation (~×40)
+- **Stage 1–4**: Fine attenuation (~×2.4)
+
+This configuration yields 8 total scales:
+
+| Scale | Expected Range |
+|-------|----------------|
+| A1    | ±0.6V          |
+| A2    | ±1.5V          |
+| A3    | ±4V            |
+| A4    | ±10V           |
+| B1    | ±24V           |
+| B2    | ±60V           |
+| B3    | ±150V          |
+| B4    | ±400V          |
+
+Switches allow quick manual selection of attenuation paths, providing hardware-level reliability and simplicity.
+
+#### AC/DC Coupling
+
+Coupling mode is selected via a **physical switch**:
+
+- **DC coupling** is the default state.
+- **AC coupling** introduces a capacitor in series to block DC components.
+
+> When switching to AC mode, start with the **highest voltage scale** to avoid damage from DC transients. After a few seconds, return to the appropriate scale for the AC signal of interest.
+
+#### Signal Conditioning and ADC Modes
+
+ARG_OSCI supports two acquisition modes:
+
+##### Internal ADC (ESP32):
+- Integrated into the ESP32 microcontroller
+- Bandwidth: ~120 kHz
+- Suitable for general-purpose, low-frequency measurements
+- May present non-linearities depending on configuration and reference voltage
+
+##### External ADC (ADS7884):
+- 10-bit, high-speed SAR ADC
+- Bandwidth: ~1.25 MHz
+- Communicates with the ESP32 via SPI
+- Offers better resolution and higher fidelity
+- **Placement Note**: The ADC must be physically close to the ESP32 to minimize signal degradation and ensure proper timing.
+
+Both paths include **anti-aliasing low-pass filters** designed to suppress high-frequency noise and avoid spectral folding.
+
+### Compensation and Calibration
+
+A **variable capacitor (trimmer)** is used to compensate for the parasitic capacitance of the signal path and switching network. Calibration ensures a flat frequency response.
+
+- Calibration is most effective on the **A2 scale** (±1.5V), where the system is most sensitive to capacitance variation.
+- A **1kHz test signal** is built into the device for easy calibration by visualizing signal integrity.
+
+Although other scales can be used for compensation, the limited tuning range of the trimmer may not be sufficient for high-voltage scales.
+
+### Power Supply
+
+- Device powered via 5V USB or external 5V supply
+- –5V rail is generated internally via LM2776 inverter
+- For improved accuracy and reduced offset, a stable external –5V supply may be used instead, via a dedicated header
+- The –5V rail shows **sensitivity to voltage level and quality**, which may introduce noise or offset in sensitive measurements
+
+> Power supply ripple or variation on the –5V rail can introduce baseline offset.
+
+### Offset Correction
+
+In case of unwanted signal offset due to analog front-end or supply variations:
+
+1. Set the probe to the highest voltage scale.
+2. Connect the input to GND.
+3. Observe the measured zero level on the application.
+4. Apply compensation in firmware by adjusting the ADC's midpoint reference.
+
+The firmware exposes two calibration variables:
+- **Default midpoint binary value** (e.g., 512 for 10-bit ADC)
+- **Default maximum binary value** (1023 for 10-bit ADC)
+
+To calculate the corrected midpoint:
+
+$mid_{corrected} = mid_{default} + (max_{default} - mid_{default}) × \frac{V_{measuredZero}}{V_{scaleMax}}$
+
+> After adjusting mid_corrected, ensure that max_corrected remains less than twice the midpoint to preserve signal range and linearity.
+
+### Frequency Response and Expected Error
+
+Due to component tolerances (~5%), the analog front-end may present small deviations in frequency response.
+
+An error chart is available showing the variation of gain versus frequency for each scale.
+
+![Simplified frequency response of the input scales](https://github.com/ArgOsciProyect/ARG_OSCI_HARDWARE/raw/main/Images/Simplified_frequency_response_of_the_input_scales.jpg)
+*Simplified frequency response of the input scales*
+
+> For higher accuracy, consider using 1% tolerance resistors and capacitors in key analog stages, especially:
+> - The main amplifier circuit
+> - The series capacitor in the second attenuation stage
+> - The 40x attenuator in the first stage
+
+###  Design Considerations
+
+- Minimize trace length between ESP32 and ADS7884
+- Shield analog paths where possible
+- Avoid switching between scales during active sampling
+- Always verify input voltage before scale selection
+
+### Functional Behavior
+
+- Manual selection of input scale and coupling
+- Visual feedback via onboard LED when device is ready to connect
+- Fixed acquisition mode (internal or external) selected at startup
+- Quick calibration via built-in test signal and trimmer
+- Real-time data streaming to companion software
+
+### Known Issues & Future Improvements
+
+#### Known Issues
+
+- Limited trimmer range limits compensation on high voltage scales
+- –5V rail may introduce noise or offset if not externally regulated
+
+#### Future Improvements
+
+- Firmware-based automatic zero-level calibration
+- Modularize front-end for multi-channel acquisition
+- Improve PCB layout for EMC and signal integrity
+
+### Images
+
+- PCB layout (bot and top side)
+  
+  ![Bot Side - PCB layout](https://github.com/ArgOsciProyect/ARG_OSCI_HARDWARE/raw/main/Images/PCB_layout/Bot_Side-PCB_layout.png)
+  
+  ![Top Side - PCB layout](https://github.com/ArgOsciProyect/ARG_OSCI_HARDWARE/raw/main/Images/PCB_layout/Top_Side-PCB_layout.png)
+
+- Argosci PCB
+
+  ![Front-Right Isometric - Argosci PCB](https://github.com/ArgOsciProyect/ARG_OSCI_HARDWARE/raw/main/Images/Argosci_PCB/Front-Right_Isometric-Argosci_PCB.png)
+
+- 3D Model Argosci PCB and case
+
+  ![Rear-Left Isometric - Argosci PCB and case](https://github.com/ArgOsciProyect/ARG_OSCI_HARDWARE/raw/main/Images/3D_Model_Argosci_PCB_and_case/Rear-Left_Isometric-Argosci_PCB_and_case.png)
+  
+- Real device assembled (Through-hole prototype)
+  
+  ![Argosci Through-hole prototype](https://github.com/ArgOsciProyect/ARG_OSCI_HARDWARE/raw/main/Images/Real_device_assembled/Argosci_Through-hole_prototype.jpg)
+  
+- 3D-printed case
+  
+  ![Front-Right Isometric - Argosci divided case (3D Model)](https://github.com/ArgOsciProyect/ARG_OSCI_HARDWARE/raw/main/Images/3D-printed_case/Front-Right_Isometric-Argosci_divided_case.png)
