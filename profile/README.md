@@ -13,6 +13,7 @@
     - [Step 3: Installation Process](#step-3-installation-process)
   - [1.4 Verifying the Installation](#14-verifying-the-installation)
   - [1.5 Firmware Update](#15-firmware-update)
+  - [1.6 Firmware usage notes and customization](#16-firmware-usage-notes-and-customization)
 - [2. App Software Installation & Usage](#2-app-software-installation--usage)
   - [2.1 Requirements](#21-requirements)
   - [2.2 Installing the Application](#22-installing-the-application)
@@ -192,6 +193,69 @@ To update the firmware to a newer version:
 3. Click "Install" to download and flash the latest firmware
 
 If you only want to change configuration settings without downloading everything again, use the "Configure & Flash" button instead of "Install".
+
+### 1.6 Firmware usage notes and customization
+
+This section complements the installation and update instructions with useful information for advanced users and those who wish to customize the ESP32 firmware.
+
+#### Relevant hardware connections
+
+- **General device pins:**
+  - Signal input: GPIO33 (`SINGLE_INPUT_PIN`)
+  - Calibration signal (1kHz square wave): GPIO32 (`SQUARE_WAVE_GPIO`)
+  - PWM output for trigger level: GPIO27 (`TRIGGER_PWM_GPIO`)
+  - Status LED: GPIO25 (`LED_GPIO`)
+
+- **Internal ADC mode:**
+  - ADC input: GPIO34 (`ADC_CHANNEL_6`)
+
+- **External ADC mode:**
+  - MISO: GPIO12 (`PIN_NUM_MISO`)
+  - SCLK: GPIO14 (`PIN_NUM_CLK`)
+  - CS: GPIO15 (`PIN_NUM_CS`)
+  - MCPWM output: GPIO13 (`MCPWM_GPIO`)
+  - SYNC signal: GPIO2 (`SYNC_GPIO`)
+
+#### Quick configuration parameters
+
+Some key parameters can be adjusted by editing the `globals.h` file before compiling the firmware:
+
+- `#define USE_EXTERNAL_ADC` — Enables external ADC usage (comment out to use internal)
+- `ADC_CHANNEL` — Input channel for the internal ADC
+- `SAMPLE_RATE_HZ` — Base sampling rate (default: 600 kHz)
+- `BUF_SIZE` — Acquisition buffer size
+- `SQUARE_WAVE_FREQ` — Calibration signal frequency (default: 1 kHz)
+
+For the external ADC, SPI parameters can be modified in the `spi_matrix` definition.
+
+#### Acquisition and trigger modes
+
+- **Normal:** Continuous data streaming.
+- **Single:** Captures a single frame when trigger conditions are met.
+- The trigger level is set as a percentage (0-100%) and you can select positive or negative edge.
+- In single mode, the system waits for the specified trigger event.
+
+#### Firmware-specific troubleshooting tips
+
+- If the app does not detect the ESP32, check that the LED is on and the device is broadcasting the configured WiFi network.
+- For advanced diagnostics, connect the ESP32 via USB and use the serial monitor (`idf.py monitor`) to view error messages.
+- If you have acquisition problems:
+  - Make sure the input signal is within the allowed range.
+  - Adjust the trigger level if using single mode.
+  - Try different sampling rates for more stable operation.
+  - Enable or disable hysteresis or the 50kHz filter applied to the trigger as needed.
+
+#### Advanced customization
+
+The firmware is modular and allows you to modify or extend features by editing the main source files:
+- `acquisition.c`: Sampling and buffer management
+- `network.c`: WiFi connectivity and communication
+- `data_transmission.c`: Data formatting and transmission
+- `webservers.c`: Configuration web interface
+- `crypto.c`: Security and encryption
+- `main.c`: Initialization and entry point
+
+For more details on contributing and code structure, see the `CONTRIBUTING.md` file in the firmware repository.
 
 ## 2. App Software Installation & Usage
 
