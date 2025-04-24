@@ -594,6 +594,7 @@ ARG_OSCI supports two acquisition modes:
 
 ##### Internal ADC (ESP32):
 - Integrated into the ESP32 microcontroller
+- 10-bit
 - Bandwidth: ~120 kHz
 - Suitable for general-purpose, low-frequency measurements
 - May present non-linearities depending on configuration and reference voltage
